@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dante & Summer | Wedding</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#000000", secondary: "#ffffff" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+        scroll-behavior: smooth;
+      }
+      .font-serif {
+        font-family: "Cormorant Garamond", serif;
+      }
+      .header {
+        transition: background-color 0.3s ease;
+      }
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 1px;
+        bottom: -2px;
+        left: 0;
+        background-color: #000;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .countdown-item {
+        position: relative;
+      }
+      .countdown-item::after {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 30px;
+        background-color: rgba(0, 0, 0, 0.2);
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .countdown-item:last-child::after {
+        display: none;
+      }
+      .custom-checkbox {
+        position: relative;
+        padding-left: 30px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .custom-checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border: 1px solid #000;
+        background-color: #fff;
+      }
+      .custom-checkbox:hover input ~ .checkmark {
+        background-color: #f9f9f9;
+      }
+      .custom-checkbox input:checked ~ .checkmark {
+        background-color: #000;
+      }
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .custom-checkbox input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .custom-checkbox .checkmark:after {
+        left: 7px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+      .custom-radio {
+        position: relative;
+        padding-left: 30px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .custom-radio input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+      .radio-mark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        border: 1px solid #000;
+        background-color: #fff;
+      }
+      .custom-radio:hover input ~ .radio-mark {
+        background-color: #f9f9f9;
+      }
+      .custom-radio input:checked ~ .radio-mark {
+        background-color: #fff;
+        border: 1px solid #000;
+      }
+      .radio-mark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .custom-radio input:checked ~ .radio-mark:after {
+        display: block;
+      }
+      .custom-radio .radio-mark:after {
+        top: 4px;
+        left: 4px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #000;
+      }
+      .gallery-item {
+        transition:
+          transform 0.3s ease,
+          filter 0.3s ease;
+        filter: grayscale(100%);
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.02);
+        z-index: 1;
+        filter: grayscale(0%);
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      /*input[type="number"] {
+-moz-appearance: textfield;
+}*/
+      .timeline-dot {
+        position: relative;
+      }
+      .timeline-dot::before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.2);
+        left: 10px;
+        top: 20px;
+      }
+      .timeline-item:last-child .timeline-dot::before {
+        display: none;
+      }
+      .custom-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+      .custom-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .switch-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #fff;
+        border: 1px solid #000;
+        transition: 0.4s;
+        border-radius: 24px;
+      }
+      .switch-slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 3px;
+        background-color: #000;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      input:checked + .switch-slider {
+        background-color: #000;
+      }
+      input:checked + .switch-slider:before {
+        transform: translateX(26px);
+        background-color: #fff;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      .scroll-top {
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.3s,
+          visibility 0.3s;
+      }
+      .scroll-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-black">
+    <!-- Header -->
+    <header id="header" class="header fixed w-full top-0 z-50 bg-transparent">
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a
+          href="#"
+          class="text-2xl md:text-3xl font-serif font-light tracking-widest"
+          >Dante & Summer</a
+        >
+        <nav class="hidden md:flex space-x-8">
+          <a href="#details" class="nav-link text-sm uppercase tracking-wider"
+            >Details</a
+          >
+          <a href="#gallery" class="nav-link text-sm uppercase tracking-wider"
+            >Gallery</a
+          >
+          <a href="#rsvp" class="nav-link text-sm uppercase tracking-wider"
+            >RSVP</a
+          >
+        </nav>
+        <div
+          class="md:hidden w-8 h-8 flex items-center justify-center cursor-pointer"
+          id="menu-toggle"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white w-full absolute top-full left-0 py-4 shadow-md"
+      >
+        <div class="container mx-auto px-6 flex flex-col space-y-4">
+          <a
+            href="#details"
+            class="py-2 border-b border-gray-100 text-sm uppercase tracking-wider"
+            >Details</a
+          >
+          <a
+            href="#gallery"
+            class="py-2 border-b border-gray-100 text-sm uppercase tracking-wider"
+            >Gallery</a
+          >
+          <a href="#rsvp" class="py-2 text-sm uppercase tracking-wider">RSVP</a>
+        </div>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section
+      class="relative h-screen flex items-center justify-center overflow-hidden"
+      style="
+        background-image: url(&quot;https://readdy.ai/api/search-image?query=A%20luxurious%20wedding%20venue%20interior%20with%20high%20ceilings%20and%20elegant%20chandeliers.%20The%20space%20features%20grand%20marble%20columns%20and%20ornate%20architectural%20details.%20Soft%20natural%20light%20streams%20through%20tall%20windows%2C%20creating%20a%20romantic%20atmosphere.%20The%20venue%20has%20classic%20white%20and%20cream%20tones%20with%20gold%20accents.%20The%20composition%20captures%20the%20grandeur%20and%20sophistication%20of%20the%20space%2C%20perfect%20for%20an%20upscale%20wedding%20ceremony.&width=1920&height=1080&seq=12&orientation=landscape&quot;);
+        background-size: cover;
+        background-position: center;
+        filter: grayscale(100%);
+      "
+    >
+      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <h1
+          class="text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-4 tracking-wide"
+        >
+          Dante & Summer
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-white font-light mb-8 tracking-wider"
+        >
+          September 6, 2026 • Houston, TX
+        </p>
+        <a
+          href="#rsvp"
+          class="inline-block px-8 py-3 border-2 border-white text-white hover:bg-white hover:text-black transition-colors duration-300 uppercase tracking-widest text-sm !rounded-button whitespace-nowrap"
+          >RSVP Now</a
+        >
+      </div>
+    </section>
+    <!-- Countdown Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-3xl mx-auto">
+          <div id="countdown" class="flex justify-between">
+            <div class="countdown-item text-center px-4 flex-1">
+              <div id="days" class="text-4xl md:text-5xl font-serif mb-2">
+                00
+              </div>
+              <div class="uppercase text-xs tracking-widest">Days</div>
+            </div>
+            <div class="countdown-item text-center px-4 flex-1">
+              <div id="hours" class="text-4xl md:text-5xl font-serif mb-2">
+                00
+              </div>
+              <div class="uppercase text-xs tracking-widest">Hours</div>
+            </div>
+            <div class="countdown-item text-center px-4 flex-1">
+              <div id="minutes" class="text-4xl md:text-5xl font-serif mb-2">
+                00
+              </div>
+              <div class="uppercase text-xs tracking-widest">Minutes</div>
+            </div>
+            <div class="countdown-item text-center px-4 flex-1">
+              <div id="seconds" class="text-4xl md:text-5xl font-serif mb-2">
+                00
+              </div>
+              <div class="uppercase text-xs tracking-widest">Seconds</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Wedding Details Section -->
+    <section id="details" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-serif text-center mb-16">
+          Wedding Details
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          <div
+            class="text-center p-8 border border-gray-200 hover:border-black transition-colors duration-300"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 flex items-center justify-center"
+            >
+              <i class="ri-calendar-line ri-2x"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-4">Ceremony</h3>
+            <p class="mb-2 font-medium">Sunday, September 6, 2026</p>
+            <p class="mb-2">4:30 PM</p>
+            <p class="mb-6">
+              Le Maison Blanc<br />5933 Brookside Rd, Brookside Village, TX
+              77581
+            </p>
+            <a
+              href="https://maps.google.com"
+              target="_blank"
+              class="inline-block text-sm uppercase tracking-wider border-b border-black pb-1 hover:text-gray-600 transition-colors"
+              >View on Map</a
+            >
+          </div>
+          <div
+            class="text-center p-8 border border-gray-200 hover:border-black transition-colors duration-300"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 flex items-center justify-center"
+            >
+              <i class="ri-goblet-line ri-2x"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-4">Reception</h3>
+            <p class="mb-2 font-medium">Sunday, September 6, 2026</p>
+            <p class="mb-2">6:30 PM</p>
+            <p class="mb-6">
+              Le Maison Blanc<br />5933 Brookside Rd, Brookside Village, TX
+              77581
+            </p>
+            <a
+              href="https://maps.google.com"
+              target="_blank"
+              class="inline-block text-sm uppercase tracking-wider border-b border-black pb-1 hover:text-gray-600 transition-colors"
+              >View on Map</a
+            >
+          </div>
+          <div
+            class="text-center p-8 border border-gray-200 hover:border-black transition-colors duration-300"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 flex items-center justify-center"
+            >
+              <i class="ri-hotel-line ri-2x"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-4">Accommodations</h3>
+            <p class="mb-6">TBD.</p>
+            <a
+              href="#"
+              class="inline-block text-sm uppercase tracking-wider border-b border-black pb-1 hover:text-gray-600 transition-colors"
+              >Book a Room</a
+            >
+          </div>
+          <div
+            class="text-center p-8 border border-gray-200 hover:border-black transition-colors duration-300"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-6 flex items-center justify-center"
+            >
+              <i class="ri-shirt-line ri-2x"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-4">Dress Code</h3>
+            <p class="mb-6">Black Tie<br />TBD.</p>
+            <a
+              href="#"
+              class="inline-block text-sm uppercase tracking-wider border-b border-black pb-1 hover:text-gray-600 transition-colors"
+              >Dress Code Details</a
+            >
+          </div>
+        </div>
+        <div class="mt-20 max-w-5xl mx-auto">
+          <h3 class="text-2xl font-serif text-center mb-8">Venue</h3>
+          <div
+            class="w-full h-80 bg-gray-100 relative overflow-hidden"
+            style="
+              background-image: url(&quot;https://static.readdy.ai/image/d9ae53dbd3cc7c87286ca3266f37c2e1/04448a033a3eb3a6361b9647584fd093.jpeg&quot;);
+              background-size: cover;
+              background-position: center;
+              filter: grayscale(100%);
+            "
+          ></div>
+          <div class="text-center mt-6">
+            <p class="text-lg font-serif">Le Maison Blanc</p>
+            <p class="text-sm text-gray-600">
+              5933 Brookside Rd, Brookside Village, TX 77581
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-5">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-serif text-center mb-16">
+          Gallery
+        </h2>
+        <div class="flex justify-center mb-10">
+          <div
+            class="inline-flex border border-black rounded-full overflow-hidden"
+          >
+            <button
+              class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider bg-black text-white focus:outline-none !rounded-button whitespace-nowrap"
+              data-filter="all"
+            >
+              All
+            </button>
+            <button
+              class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 focus:outline-none !rounded-button whitespace-nowrap"
+              data-filter="engagement"
+            >
+              Engagement
+            </button>
+            <button
+              class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 focus:outline-none !rounded-button whitespace-nowrap"
+              data-filter="travels"
+            >
+              Travels
+            </button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div
+            class="gallery-item overflow-hidden cursor-pointer"
+            data-category="engagement"
+          >
+            <img
+              src="images/photo14.jpg"
+              alt="Engagement Photo 1"
+              class="w-full h-full object-cover transition-transform duration-300"
+            />
+          </div>
+          <div
+            class="gallery-item overflow-hidden cursor-pointer"
+            data-category="travels"
+          >
+            <img
+              src="images/photo6.png"
+              alt="Travel Photo 1"
+              class="w-full h-full object-cover transition-transform duration-300"
+            />
+          </div>
+          <div
+            class="gallery-item overflow-hidden cursor-pointer"
+            data-category="engagement"
+          >
+            <img
+              src="images/photo4.png"
+              alt="Engagement Photo 2"
+              class="w-full h-full object-cover transition-transform duration-300"
+            />
+          </div>
+          <div
+            class="gallery-item overflow-hidden cursor-pointer"
+            data-category="travels"
+          >
+            <img
+              src="images/photo8.png"
+              alt="Travel Photo 2"
+              class="w-full h-full object-cover transition-transform duration-300"
+            />
+          </div>
+          <div
+            class="gallery-item overflow-hidden cursor-pointer"
+            data-category="engagement"
+          >
+            <img
+              src="images/photo9.png"
+              alt="Engagement Photo 3"
+              class="w-full h-full object-cover transition-transform duration-300"
+            />
+          </div>
+          <div
+            class="gallery-item overflow-hidden cursor-pointer"
+            data-category="travels"
+          >
+            <img
+              src="images/photo12.png"
+              alt="Travel Photo 3"
+              class="w-full h-full object-cover transition-transform duration-300"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="bridalParty" class="py-20 md:py-32">
+      <div class="container mx-auto px-4">
+        <h2 class="text-4xl md:text-5xl font-serif text-center mb-16">
+          Bridal Party
+        </h2>
+        <div class="mb-20">
+          <h3 class="text-3xl font-serif text-center mb-12">Bridesmaids</h3>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            id="bridesmaidsGrid"
+          ></div>
+        </div>
+        <div>
+          <h3 class="text-3xl font-serif text-center mb-12">Groomsmen</h3>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            id="groomsmenGrid"
+          ></div>
+        </div>
+      </div>
+    </section>
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-20 bg-white">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-serif text-center mb-16">RSVP</h2>
+        <form id="rsvp-form" class="max-w-2xl mx-auto">
+          <div class="mb-8">
+            <label
+              for="name"
+              class="block text-sm uppercase tracking-wider mb-2"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
+              required
+            />
+          </div>
+          <div class="mb-8">
+            <label
+              for="email"
+              class="block text-sm uppercase tracking-wider mb-2"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              id="email"
+              class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
+              required
+            />
+          </div>
+          <div class="mb-8">
+            <p class="block text-sm uppercase tracking-wider mb-4">
+              Will you be attending?
+            </p>
+            <div class="flex flex-col space-y-3">
+              <label class="custom-radio">
+                <input type="radio" name="attending" value="yes" required />
+                <span class="radio-mark"></span>
+                Yes
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="attending" value="no" />
+                <span class="radio-mark"></span>
+                No
+              </label>
+            </div>
+          </div>
+          <div class="mb-8">
+            <label
+              for="guests"
+              class="block text-sm uppercase tracking-wider mb-2"
+              >Number of Guests</label
+            >
+            <input
+              type="number"
+              id="guests"
+              min="1"
+              max="5"
+              class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
+              required
+            />
+          </div>
+          <div class="mb-8">
+            <p class="block text-sm uppercase tracking-wider mb-4">
+              Meal Preference
+            </p>
+            <div class="flex flex-col space-y-3">
+              <label class="custom-radio">
+                <input type="radio" name="meal" value="chicken" required />
+                <span class="radio-mark"></span>
+                Chicken
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="meal" value="fish" />
+                <span class="radio-mark"></span>
+                Grilled Salmon
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="meal" value="vegetarian" />
+                <span class="radio-mark"></span>
+                Vegetarian Option
+              </label>
+            </div>
+          </div>
+          <div class="mb-8">
+            <label
+              for="message"
+              class="block text-sm uppercase tracking-wider mb-2"
+              >Message to the Couple (Optional)</label
+            >
+            <textarea
+              id="message"
+              rows="4"
+              class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
+            ></textarea>
+          </div>
+          <div class="mb-8">
+            <label class="custom-checkbox">
+              <input type="checkbox" required />
+              <span class="checkmark"></span>
+              I understand that my RSVP is due by July 1, 2026
+            </label>
+          </div>
+          <button
+            type="submit"
+            class="w-full py-4 bg-black text-white hover:bg-gray-900 transition-colors uppercase tracking-widest text-sm !rounded-button whitespace-nowrap"
+          >
+            Submit RSVP
+          </button>
+        </form>
+      </div>
+    </section>
+    <!-- Registry Section 
+    <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-serif text-center mb-16">
+          Registry
+        </h2>
+        <div class="max-w-3xl mx-auto text-center">
+          <p class="mb-10 text-gray-700">
+            Your presence at our wedding is the greatest gift of all. However,
+            if you wish to honor us with a gift, we've registered at the
+            following places:
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <a
+              href="#"
+              class="p-8 border border-gray-200 hover:border-black transition-colors duration-300 flex flex-col items-center"
+            >
+              <div class="w-16 h-16 mb-4 flex items-center justify-center">
+                <i class="ri-home-line ri-2x"></i>
+              </div>
+              <span class="text-lg font-medium">Crate & Barrel</span>
+            </a>
+            <a
+              href="#"
+              class="p-8 border border-gray-200 hover:border-black transition-colors duration-300 flex flex-col items-center"
+            >
+              <div class="w-16 h-16 mb-4 flex items-center justify-center">
+                <i class="ri-store-line ri-2x"></i>
+              </div>
+              <span class="text-lg font-medium">Williams-Sonoma</span>
+            </a>
+            <a
+              href="#"
+              class="p-8 border border-gray-200 hover:border-black transition-colors duration-300 flex flex-col items-center"
+            >
+              <div class="w-16 h-16 mb-4 flex items-center justify-center">
+                <i class="ri-gift-line ri-2x"></i>
+              </div>
+              <span class="text-lg font-medium">Honeymoon Fund</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- Footer -->
+    <footer class="py-16 bg-black text-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-10">
+          <h2 class="text-2xl md:text-3xl font-serif mb-4">Dante & Summer</h2>
+          <p class="text-gray-400">September 6, 2026 • Houston, TX</p>
+        </div>
+        <div class="flex justify-center space-x-6 mb-10">
+          <!-- <a
+            href="#"
+            class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-white transition-colors"
+          >
+            <i class="ri-instagram-line"></i> 
+          </a>
+            <a
+            href="#"
+            class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-white transition-colors"
+          >
+              <i class="ri-facebook-line"></i> 
+          </a> -->
+          <a
+            href="#"
+            class="w-10 h-10 flex items-center justify-center border border-gray-700 rounded-full hover:border-white transition-colors"
+          >
+            <i class="ri-mail-line"></i>
+          </a>
+        </div>
+        <div class="text-center text-gray-500 text-sm">
+          <p>&copy; 2025 Dante & Summer Wedding. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button -->
+    <button
+      id="scroll-top"
+      class="scroll-top fixed bottom-8 right-8 w-12 h-12 bg-black text-white rounded-full flex items-center justify-center shadow-lg z-50"
+    >
+      <i class="ri-arrow-up-line ri-lg"></i>
+    </button>
+    <!-- Success Modal -->
+    <div
+      id="success-modal"
+      class="fixed inset-0 flex items-center justify-center z-50 hidden"
+    >
+      <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+      <div class="bg-white p-10 max-w-md w-full relative z-10 fade-in">
+        <button
+          id="close-modal"
+          class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center"
+        >
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
+            <i class="ri-check-line ri-2x"></i>
+          </div>
+          <h3 class="text-2xl font-serif mb-4">Thank You!</h3>
+          <p class="mb-6">
+            Your RSVP has been successfully submitted. We look forward to
+            celebrating with you!
+          </p>
+          <button
+            id="confirm-modal"
+            class="px-8 py-3 bg-black text-white hover:bg-gray-900 transition-colors uppercase tracking-widest text-sm !rounded-button whitespace-nowrap"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <script id="header-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const header = document.getElementById("header");
+        const menuToggle = document.getElementById("menu-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+        // Header scroll effect
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 50) {
+            header.classList.add("bg-white", "shadow-md");
+            header.classList.remove("bg-transparent");
+          } else {
+            header.classList.remove("bg-white", "shadow-md");
+            header.classList.add("bg-transparent");
+          }
+        });
+        // Mobile menu toggle
+        menuToggle.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+        });
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll("a");
+        mobileLinks.forEach((link) => {
+          link.addEventListener("click", function () {
+            mobileMenu.classList.add("hidden");
+          });
+        });
+      });
+    </script>
+    <script id="countdown-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set the wedding date - September 6, 2025
+        const weddingDate = new Date("September 6, 2026 16:00:00").getTime();
+        // Update the countdown every second
+        const countdown = setInterval(function () {
+          const now = new Date().getTime();
+          const distance = weddingDate - now;
+          // Calculate days, hours, minutes and seconds
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60)
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          // Display the result
+          document.getElementById("days").textContent = days
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("hours").textContent = hours
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("minutes").textContent = minutes
+            .toString()
+            .padStart(2, "0");
+          document.getElementById("seconds").textContent = seconds
+            .toString()
+            .padStart(2, "0");
+          // If the countdown is finished
+          if (distance < 0) {
+            clearInterval(countdown);
+            document.getElementById("days").textContent = "00";
+            document.getElementById("hours").textContent = "00";
+            document.getElementById("minutes").textContent = "00";
+            document.getElementById("seconds").textContent = "00";
+          }
+        }, 1000);
+      });
+    </script>
+    <script id="gallery-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const galleryItems = document.querySelectorAll(".gallery-item");
+        const filterButtons = document.querySelectorAll(".gallery-filter");
+        // Filter gallery items
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const filter = this.getAttribute("data-filter");
+            // Update active button
+            filterButtons.forEach((btn) => {
+              btn.classList.remove("bg-black", "text-white");
+              btn.classList.add("hover:bg-gray-100");
+            });
+            this.classList.add("bg-black", "text-white");
+            this.classList.remove("hover:bg-gray-100");
+            // Show/hide gallery items
+            galleryItems.forEach((item) => {
+              if (
+                filter === "all" ||
+                item.getAttribute("data-category") === filter
+              ) {
+                item.style.display = "block";
+              } else {
+                item.style.display = "none";
+              }
+            });
+          });
+        });
+      });
+    </script>
+    <script id="rsvp-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const rsvpForm = document.getElementById("rsvp-form");
+        const successModal = document.getElementById("success-modal");
+        const closeModal = document.getElementById("close-modal");
+        const confirmModal = document.getElementById("confirm-modal");
+        // Form submission
+        rsvpForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Show success modal
+          successModal.classList.remove("hidden");
+          // Reset form
+          rsvpForm.reset();
+        });
+        // Close modal
+        closeModal.addEventListener("click", function () {
+          successModal.classList.add("hidden");
+        });
+        confirmModal.addEventListener("click", function () {
+          successModal.classList.add("hidden");
+        });
+        // Close modal when clicking outside
+        successModal.addEventListener("click", function (e) {
+          if (e.target === successModal) {
+            successModal.classList.add("hidden");
+          }
+        });
+      });
+    </script>
+    <script id="scroll-script">
+      document.addEventListener("DOMContentLoaded", function () {
+        const scrollTopButton = document.getElementById("scroll-top");
+        // Show/hide scroll to top button
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 500) {
+            scrollTopButton.classList.add("visible");
+          } else {
+            scrollTopButton.classList.remove("visible");
+          }
+        });
+        // Scroll to top when button is clicked
+        scrollTopButton.addEventListener("click", function () {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        });
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            if (targetId === "#") return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+      });
+    </script>
+    <script id="rsvpScript">
+      document.addEventListener("DOMContentLoaded", function () {
+        const rsvpForm = document.getElementById("rsvp-form");
+        const successModal = document.getElementById("success-modal");
+        const closeModal = document.getElementById("close-modal");
+        const confirmModal = document.getElementById("confirm-modal");
+
+        // Form submission
+        rsvpForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // ✅ SheetDB Integration
+          const formData = new FormData(rsvpForm);
+          const data = {};
+          formData.forEach((value, key) => {
+            data[key] = value;
+          });
+
+          fetch("https://sheetdb.io/api/v1/vhfpy5t506h8q", {
+            // <-- Replace with your actual endpoint
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ data }),
+          })
+            .then((res) => res.json())
+            .then((res) => {
+              // ✅ On success: show modal & reset form
+              successModal.classList.remove("hidden");
+              rsvpForm.reset();
+            })
+            .catch((err) => {
+              alert(
+                "There was an error submitting your RSVP. Please try again."
+              );
+              console.error(err);
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener("click", function () {
+          successModal.classList.add("hidden");
+        });
+        confirmModal.addEventListener("click", function () {
+          successModal.classList.add("hidden");
+        });
+
+        // Close modal when clicking outside
+        successModal.addEventListener("click", function (e) {
+          if (e.target === successModal) {
+            successModal.classList.add("hidden");
+          }
+        });
+      });
+    </script>
+
+    <script id="bridalPartyScript">
+      document.addEventListener("DOMContentLoaded", function () {
+        const bridalPartyData = {
+          bridesmaids: [
+            {
+              name: "Lauren Ware",
+              role: "Maid of Honor",
+              description: "",
+              image: "bride/lauren.jpg",
+            },
+            {
+              name: "Jaleja",
+              role: "Maid of Honor",
+              description: "",
+              image: "bride/jaleja.jpg",
+            },
+            {
+              name: "Destiny Hamilton",
+              role: "Bridesmaid",
+              description: "",
+              image: "bride/dham.jpg",
+            },
+            {
+              name: "Erin Presely",
+              role: "Bridesmaid",
+              description: "",
+              image: "bride/erin.jpg",
+            },
+            {
+              name: "Sabrina",
+              role: "Matron of Honor",
+              description: "",
+              image: "bride/sb.jpg",
+            },
+            {
+              name: "Michala",
+              role: "Bridesmaid",
+              description: "",
+              image: "bride/michala.jpg",
+            },
+            {
+              name: "Brianna",
+              role: "Bridesmaid",
+              description: "",
+              image: "bride/bri.jpg",
+            },
+            {
+              name: "Tiffani",
+              role: "Bridesmaid",
+              description: "",
+              image: "bride/tiffani.jpg",
+            },
+          ],
+          groomsmen: [
+            {
+              name: "DeAndre Crayton",
+              role: "Best Man",
+              description: "",
+              image: "groom/dre9.jpg",
+            },
+            {
+              name: "Jonathan Osei-Kuffour",
+              role: "Best Man",
+              description: "",
+              image: "groom/jojo2.jpg",
+            },
+            {
+              name: "Derrick Crayton",
+              role: "Groomsman",
+              description: "",
+              image: "groom/derrick.png",
+            },
+            {
+              name: "Billy Wayne",
+              role: "Groomsman",
+              description: "",
+              image: "groom/billy2.jpg",
+            },
+            {
+              name: "Donald Bell",
+              role: "Groomsman",
+              description: "",
+              image: "groom/bj2.jpg",
+            },
+
+            {
+              name: "Darryl Foster",
+              role: "Groomsman",
+              description: "",
+              image: "groom/darryl2.jpg",
+            },
+            {
+              name: "Tola Adebigte",
+              role: "Groomsman",
+              description: "",
+              image: "groom/tola.jpg",
+            },
+            {
+              name: "Troy Broussard",
+              role: "Groomsman",
+              description: "",
+              image: "groom/troy.jpg",
+            },
+            {
+              name: "Greg Anthony",
+              role: "Groomsman",
+              description: "",
+              image: "groom/greg4.jpg",
+            },
+            {
+              name: "Anthony Scott",
+              role: "Groomsman",
+              description: "",
+              image: "groom/ayejay4.jpg",
+            },
+            {
+              name: "Derrick Brooks",
+              role: "Groomsman",
+              description: "",
+              image: "groom/june2.jpg",
+            },
+            {
+              name: "Lance Lindley",
+              role: "Groomsman",
+              description: "",
+              image: "groom/lance4.jpg",
+            },
+          ],
+        };
+
+        function createPartyCard(person) {
+          return `
+      <div class="party-card bg-white p-6 rounded shadow-md">
+      <div class="mx-auto mb-4 overflow-hidden rounded-full w-40 h-40">
+      <img src="${person.image}" alt="${person.name}" class="w-full h-full object-cover object-top filter grayscale hover:filter-none transition-all duration-500">
+      </div>
+      <h4 class="text-xl font-serif mb-2">${person.name}</h4>
+      <p class="text-gray-600 mb-3">${person.role}</p>
+      <p class="text-gray-700 text-sm">${person.description}</p>
+      </div>
+      `;
+        }
+
+        const bridesmaidsGrid = document.getElementById("bridesmaidsGrid");
+        const groomsmenGrid = document.getElementById("groomsmenGrid");
+
+        bridesmaidsGrid.innerHTML = bridalPartyData.bridesmaids
+          .map((bridesmaid) => createPartyCard(bridesmaid))
+          .join("");
+
+        groomsmenGrid.innerHTML = bridalPartyData.groomsmen
+          .map((groomsman) => createPartyCard(groomsman))
+          .join("");
+      });
+    </script>
+  </body>
+</html>
