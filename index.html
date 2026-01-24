@@ -1031,12 +1031,12 @@
           
           // ✅ Correct Mapping for SheetDB
           const data = {
-           "Name": formData.get("name"),             // Use the lowercase 'name' from your HTML
-           "Email": formData.get("email"),
-           "Attending": formData.get("attending"),
-           "Guests": formData.get("guests"),
-           "Meal Preference": formData.get("meal"),  // Match these to your HTML input 'name'
-           "Message To Couple": formData.get("message")
+           "Name": formData.get("full name"),             // Use the lowercase 'name' from your HTML
+           "Email": formData.get("email address"),
+           "Attending": formData.get("will you be attending"),
+           "Guests": formData.get("number of guests"),
+           "Meal Preference": formData.get("meal prefrence"),  // Match these to your HTML input 'name'
+           "Message To Couple": formData.get("message to the couple")
 };
 
           fetch("https://sheetdb.io/api/v1/vhfpy5t506h8q", {
