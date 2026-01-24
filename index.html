@@ -1031,13 +1031,13 @@
           
           // ✅ Correct Mapping for SheetDB
           const data = {
-           "Name": formData.get("full name"),             // Use the lowercase 'name' from your HTML
-           "Email": formData.get("email address"),
-           "Attending": formData.get("will you be attending"),
-           "Guests": formData.get("number of guests"),
-           "Meal Preference": formData.get("meal prefrence"),  // Match these to your HTML input 'name'
-           "Message To Couple": formData.get("message to the couple")
-};
+           "Name": document.querySelector('[Full Name="name"]').value,
+           "Email": document.querySelector('[Email Address="email"]').value,
+           "Attending": document.querySelector('[Will you be attending?="attending"]').value,
+           "Guests": document.querySelector('[Number of Guests"guests"]').value,
+          "Meal Preference": document.querySelector('[Meal Preference="meal"]').value,
+          "Message To Couple": document.querySelector('[Message to the Couple (Optional)="message"]').value
+          };
 
           fetch("https://sheetdb.io/api/v1/vhfpy5t506h8q", {
             // <-- Replace with your actual endpoint
