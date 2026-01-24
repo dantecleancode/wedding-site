@@ -1023,11 +1023,21 @@
           e.preventDefault();
 
           // ✅ SheetDB Integration
-          const formData = new FormData(rsvpForm);
-          const data = {};
-          formData.forEach((value, key) => {
-            data[key] = value;
-          });
+          // const formData = new FormData(rsvpForm);
+          // const data = {};
+          // formData.forEach((value, key) => {
+            // data[key] = value;
+          //});
+          
+          // ✅ Correct Mapping for SheetDB
+          const data = {
+           "Name": formData.get("name"),             // Use the lowercase 'name' from your HTML
+           "Email": formData.get("email"),
+           "Attending": formData.get("attending"),
+           "Guests": formData.get("guests"),
+           "Meal Preference": formData.get("meal"),  // Match these to your HTML input 'name'
+           "Message To Couple": formData.get("message")
+};
 
           fetch("https://sheetdb.io/api/v1/vhfpy5t506h8q", {
             // <-- Replace with your actual endpoint
