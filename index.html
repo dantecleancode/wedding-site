@@ -876,6 +876,8 @@
               </label>
             </div>
           </div>
+          <!-- Success / Error Message Box -->
+          <div id="form-status" class="hidden my-4 p-4 text-center text-sm font-serif border"></div>
 
           <!-- ALWAYS VISIBLE SUBMIT BUTTON -->
           <div class="mt-8">
@@ -1235,74 +1237,127 @@
       });
     </script> -->
 
-    <script id="wedding-logic-script">
-      // 1. Guest List - adjust allowedPlusOne per guest
-      const guestList = [
-        { name: "donald bell", allowedPlusOne: true },
-        { name: "john doe", allowedPlusOne: false },
-        { name: "jane smith", allowedPlusOne: true },
-      ];
+   <script id="wedding-logic-script">
+  // 1. Guest List Data
+  const guestList = [
+    { name: "lauren ware", allowedPlusOne: true },
+    { name: "john doe", allowedPlusOne: false },
+    { name: "jane smith", allowedPlusOne: true }
+  ];
 
-      document.addEventListener("DOMContentLoaded", function () {
-        const guestNameInput = document.getElementById("name");
-        const attendanceContainer = document.getElementById(
-          "attendanceContainer",
-        );
-        const attendanceSelect = document.getElementById("attendance");
-        const dynamicFields = document.getElementById("dynamicFields");
-        const plusOneSection = document.getElementById("plusOneSection");
-        const plusOneSelect = document.getElementById("plusOneSelect");
-        const plusOneNameContainer = document.getElementById(
-          "plusOneNameContainer",
-        );
+  document.addEventListener("DOMContentLoaded", function () {
+    // DOM Element References
+    const guestNameInput = document.getElementById("name");
+    const attendanceContainer = document.getElementById("attendanceContainer");
+    const attendanceSelect = document.getElementById("attendance");
+    const dynamicFields = document.getElementById("dynamicFields");
+    const plusOneSection = document.getElementById("plusOneSection");
+    const plusOneSelect = document.getElementById("plusOneSelect");
+    const plusOneNameContainer = document.getElementById("plusOneNameContainer");
+    const rsvpForm = document.getElementById("rsvp-form");
+    const statusDiv = document.getElementById("form-status");
+    const submitBtn = document.getElementById("submit-btn");
 
-        let canHavePlusOne = false;
+    let canHavePlusOne = false;
 
-        // Listen for name typing to check plus-one status
-        if (guestNameInput) {
-          guestNameInput.addEventListener("input", function () {
-            const enteredName = this.value.trim().toLowerCase();
-            const matchedGuest = guestList.find((g) => g.name === enteredName);
+    // --- A. GUEST NAME MATCHING LOGIC ---
+    if (guestNameInput) {
+      guestNameInput.addEventListener("input", function () {
+        const enteredName = this.value.trim().toLowerCase();
+        const matchedGuest = guestList.find(g => g.name === enteredName);
 
-            if (matchedGuest) {
-              canHavePlusOne = matchedGuest.allowedPlusOne;
-              if (attendanceContainer)
-                attendanceContainer.classList.remove("hidden");
-            } else {
-              canHavePlusOne = false;
-            }
-          });
-        }
-
-        // Toggle options based on attending/declining
-        if (attendanceSelect) {
-          attendanceSelect.addEventListener("change", function () {
-            if (this.value === "attending") {
-              if (dynamicFields) dynamicFields.classList.remove("hidden");
-
-              if (canHavePlusOne && plusOneSection) {
-                plusOneSection.classList.remove("hidden");
-              } else if (plusOneSection) {
-                plusOneSection.classList.add("hidden");
-              }
-            } else {
-              if (dynamicFields) dynamicFields.classList.add("hidden");
-            }
-          });
-        }
-
-        // Toggle plus-one name field
-        if (plusOneSelect && plusOneNameContainer) {
-          plusOneSelect.addEventListener("change", function () {
-            if (this.value === "yes") {
-              plusOneNameContainer.classList.remove("hidden");
-            } else {
-              plusOneNameContainer.classList.add("hidden");
-            }
-          });
+        if (matchedGuest) {
+          canHavePlusOne = matchedGuest.allowedPlusOne;
+          if (attendanceContainer) attendanceContainer.classList.remove("hidden");
+        } else {
+          canHavePlusOne = false;
         }
       });
-    </script>
+    }
+
+    // --- B. ATTENDANCE & DYNAMIC FIELDS TOGGLE ---
+    if (attendanceSelect) {
+      attendanceSelect.addEventListener("change", function () {
+        if (this.value === "attending") {
+          if (dynamicFields) dynamicFields.classList.remove("hidden");
+          
+          if (canHavePlusOne && plusOneSection) {
+            plusOneSection.classList.remove("hidden");
+          } else if (plusOneSection) {
+            plusOneSection.classList.add("hidden");
+          }
+        } else {
+          if (dynamicFields) dynamicFields.classList.add("hidden");
+        }
+      });
+    }
+
+    // --- C. PLUS-ONE NAME INPUT TOGGLE ---
+    if (plusOneSelect && plusOneNameContainer) {
+      plusOneSelect.addEventListener("change", function () {
+        if (this.value === "yes") {
+          plusOneNameContainer.classList.remove("hidden");
+        } else {
+          plusOneNameContainer.classList.add("hidden");
+        }
+      });
+    }
+
+    // --- D. FORMSPREE BACKGROUND SUBMISSION (AJAX) ---
+    if (rsvpForm) {
+      rsvpForm.addEventListener("submit", function (e) {
+        // Prevent default redirect to Formspree site
+        e.preventDefault();
+
+        // Update button status
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending...";
+        }
+
+        const data = new FormData(rsvpForm);
+
+        fetch(rsvpForm.action, {
+          method: "POST",
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        }).then(response => {
+          if (response.ok) {
+            // Show inline success message
+            if (statusDiv) {
+              statusDiv.classList.remove("hidden", "border-red-500", "text-red-600");
+              statusDiv.classList.add("border-black", "text-black", "bg-gray-50");
+              statusDiv.innerHTML = "✨ Thank you! Your RSVP has been received.";
+            }
+            
+            // Reset form
+            rsvpForm.reset();
+            if (dynamicFields) dynamicFields.classList.add("hidden");
+          } else {
+            if (statusDiv) {
+              statusDiv.classList.remove("hidden");
+              statusDiv.classList.add("border-red-500", "text-red-600");
+              statusDiv.innerHTML = "Oops! There was a problem submitting your RSVP.";
+            }
+          }
+        }).catch(error => {
+          if (statusDiv) {
+            statusDiv.classList.remove("hidden");
+            statusDiv.classList.add("border-red-500", "text-red-600");
+            statusDiv.innerHTML = "Oops! There was a network issue. Please try again.";
+          }
+        }).finally(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit RSVP";
+          }
+        });
+      });
+    }
+  });
+</script>
 
     <script id="bridalPartyScript">
       document.addEventListener("DOMContentLoaded", function () {
