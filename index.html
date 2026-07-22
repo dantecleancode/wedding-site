@@ -1237,7 +1237,7 @@
       });
     </script> -->
 
-   <script id="wedding-logic-script">
+ <script id="wedding-logic-script">
   // 1. Guest List Data
   const guestList = [
     { name: "lauren ware", allowedPlusOne: true },
@@ -1304,75 +1304,59 @@
     }
 
     // --- D. FORMSPREE BACKGROUND SUBMISSION (AJAX) ---
-const rsvpForm = document.getElementById("rsvp-form");
-const statusDiv = document.getElementById("form-status");
-const submitBtn = document.getElementById("submit-btn");
+    if (rsvpForm) {
+      rsvpForm.addEventListener("submit", function (e) {
+        // Prevent default redirect to Formspree site
+        e.preventDefault();
 
-if (rsvpForm) {
-  rsvpForm.addEventListener("submit", function (e) {
-    // 1. Force stop normal form submission/redirect
-    e.preventDefault();
-    e.stopPropagation();
-
-    // 2. Disable button & update text
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
-    }
-
-    const formData = new FormData(rsvpForm);
-
-    // 3. Send via Fetch API
-    fetch(rsvpForm.action, {
-      method: "POST",
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      if (response.ok) {
-        // Show success message
-        if (statusDiv) {
-          statusDiv.classList.remove("hidden", "border-red-500", "text-red-600");
-          statusDiv.classList.add("border-black", "text-black", "bg-gray-50");
-          statusDiv.innerHTML = "✨ Thank you! Your RSVP has been received.";
+        // Update button status
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending...";
         }
-        
-        // Reset form inputs
-        rsvpForm.reset();
 
-        // Hide dynamic fields again
-        const dynamicFields = document.getElementById("dynamicFields");
-        const attendanceContainer = document.getElementById("attendanceContainer");
-        if (dynamicFields) dynamicFields.classList.add("hidden");
-        if (attendanceContainer) attendanceContainer.classList.add("hidden");
+        const data = new FormData(rsvpForm);
 
-      } else {
-        return response.json().then(data => {
+        fetch(rsvpForm.action, {
+          method: "POST",
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        }).then(response => {
+          if (response.ok) {
+            // Show inline success message
+            if (statusDiv) {
+              statusDiv.classList.remove("hidden", "border-red-500", "text-red-600");
+              statusDiv.classList.add("border-black", "text-black", "bg-gray-50");
+              statusDiv.innerHTML = "✨ Thank you! Your RSVP has been received.";
+            }
+            
+            // Reset form
+            rsvpForm.reset();
+            if (dynamicFields) dynamicFields.classList.add("hidden");
+          } else {
+            if (statusDiv) {
+              statusDiv.classList.remove("hidden");
+              statusDiv.classList.add("border-red-500", "text-red-600");
+              statusDiv.innerHTML = "Oops! There was a problem submitting your RSVP.";
+            }
+          }
+        }).catch(error => {
           if (statusDiv) {
             statusDiv.classList.remove("hidden");
             statusDiv.classList.add("border-red-500", "text-red-600");
-            statusDiv.innerHTML = data.errors ? data.errors.map(err => err.message).join(", ") : "Submission failed.";
+            statusDiv.innerHTML = "Oops! There was a network issue. Please try again.";
+          }
+        }).finally(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit RSVP";
           }
         });
-      }
-    })
-    .catch(error => {
-      if (statusDiv) {
-        statusDiv.classList.remove("hidden");
-        statusDiv.classList.add("border-red-500", "text-red-600");
-        statusDiv.innerHTML = "Network error. Please try again.";
-      }
-    })
-    .finally(() => {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit RSVP";
-      }
-    });
+      });
+    }
   });
-});
 </script>
 
     <script id="bridalPartyScript">
