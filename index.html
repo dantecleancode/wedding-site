@@ -795,40 +795,22 @@
             </select>
           </div>
 
-          <!-- 4. Dynamic Fields Container (Only reveals when attending) -->
-          <div id="dynamicFields" class="hidden">
-            <!-- Plus-One Selection (Only shown if guest has plus-one permissions) -->
-            <div id="plusOneSection" class="mb-8 hidden">
-              <label
-                for="plusOneSelect"
-                class="block text-sm uppercase tracking-wider mb-2"
-                >Bringing a Plus One?</label
-              >
-              <select
-                id="plusOneSelect"
-                name="bringing_plus_one"
-                class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors bg-white"
-              >
-                <option value="no">No Plus One</option>
-                <option value="yes">Yes, bringing a Plus One</option>
-              </select>
-            </div>
+          <!-- Replace your existing plusOneSection and plusOneNameContainer with this: -->
 
-            <!-- Plus-One Name Input (Revealed if 'yes' is selected above) -->
-            <div id="plusOneNameContainer" class="mb-8 hidden">
-              <label
-                for="plusOneName"
-                class="block text-sm uppercase tracking-wider mb-2"
-                >Plus One Full Name</label
-              >
-              <input
-                type="text"
-                id="plusOneName"
-                name="plus_one_name"
-                placeholder="Enter plus one full name"
-                class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
-              />
-            </div>
+              <!-- Plus-One / Family Dropdown Section -->
+        <div id="plusOneSection" class="mb-8 hidden">
+          <label for="plusOneSelect" class="block text-sm uppercase tracking-wider mb-2">Number of Additional Guests</label>
+          <select
+            id="plusOneSelect"
+            class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors bg-white">
+          <!-- Options (0, +1, +2, etc.) will be dynamically generated here by JavaScript -->
+          </select>
+        </div>
+
+                <!-- Dynamic Plus-One Names Container -->
+      <div id="plusOneNamesContainer" class="mb-8 hidden space-y-4">
+        <!-- Input text boxes for guest names will automatically appear here -->
+      </div>
 
             <!-- Meal Preference 
         <div class="mb-8">
@@ -1240,9 +1222,9 @@
  <script id="wedding-logic-script">
   // 1. Guest List Data
   const guestList = [
-    { name: "lauren ware", allowedPlusOne: true },
-    { name: "john doe", allowedPlusOne: false },
-    { name: "jane smith", allowedPlusOne: true }
+    { name: "lauren ware", allowedPlusOne: false },
+    { name: "jaleja page", allowedPlusOne: false },
+    { name: "tiffani", allowedPlusOne: true }
   ];
 
   document.addEventListener("DOMContentLoaded", function () {
