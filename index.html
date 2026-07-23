@@ -1173,7 +1173,7 @@
         }, 1000);
       });
     </script>
-    <script id="gallery-script">
+   <!-- <script id="gallery-script">
       document.addEventListener("DOMContentLoaded", function () {
         const galleryItems = document.querySelectorAll(".gallery-item");
         const filterButtons = document.querySelectorAll(".gallery-filter");
@@ -1202,7 +1202,43 @@
           });
         });
      
-    </script>
+    </script> -->
+    document.addEventListener("DOMContentLoaded", function () {
+  
+    // --- GALLERY FILTER LOGIC ---
+    <script>
+      const filterButtons = document.querySelectorAll(".gallery-filter");
+      const galleryItems = document.querySelectorAll(".gallery-item");
+
+      if (filterButtons.length > 0 && galleryItems.length > 0) {
+        filterButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // 1. Get the category from clicked button
+            const filterValue = this.getAttribute("data-filter");
+
+            // 2. Update active button styling (black background for active button)
+            filterButtons.forEach((btn) => {
+              btn.classList.remove("bg-black", "text-white");
+              btn.classList.add("hover:bg-gray-100", "text-black");
+            });
+            this.classList.add("bg-black", "text-white");
+            this.classList.remove("hover:bg-gray-100");
+
+            // 3. Show / Hide gallery items based on category
+            galleryItems.forEach((item) => {
+              const category = item.getAttribute("data-category");
+
+              if (filterValue === "all" || category === filterValue) {
+                item.classList.remove("hidden");
+              } else {
+                  item.classList.add("hidden");
+              }
+            });
+          });
+        });
+      }
+    });
+  </script>
    <!-- <script id="rsvp-script">
       document.addEventListener("DOMContentLoaded", function () {
         const rsvpForm = document.getElementById("rsvp-form");
