@@ -302,24 +302,22 @@
     -webkit-filter: grayscale(0%);
     transform: scale(1.05);
   } */
-      gallery-item img {
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-    transition: filter 0.4s ease, transform 0.4s ease;
-  }
-
-  /* Full color and slight zoom on hover */
-  .gallery-item img {
+     .gallery-item img {
     filter: grayscale(100%) !important;
     -webkit-filter: grayscale(100%) !important;
     transition: filter 0.4s ease-in-out, transform 0.4s ease-in-out !important;
   }
 
-  /* Force image to full color and slight zoom when the parent card is hovered */
-  .gallery-item:hover img {
+  /* Force color on hovering the parent container OR the image itself */
+  .gallery-item:hover img,
+  .gallery-item img:hover {
     filter: grayscale(0%) !important;
     -webkit-filter: grayscale(0%) !important;
     transform: scale(1.05) !important;
+  }
+
+  .gallery-item.is-hidden {
+    display: none !important;
   }
 
   /* Utility class to hide gallery items when filtering tabs */
