@@ -1830,5 +1830,60 @@
           .join("");
       });
     </script>
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // --- 1. HOVER COLOR TRANSITION LOGIC ---
+    const galleryImages = document.querySelectorAll(".bw-img");
+
+    galleryImages.forEach((img) => {
+      // Set initial state to Grayscale
+      img.style.filter = "grayscale(100%)";
+      img.style.webkitFilter = "grayscale(100%)";
+
+      // On Mouse Enter: Reveal Color & Scale Up
+      img.addEventListener("mouseenter", function () {
+        this.style.filter = "grayscale(0%)";
+        this.style.webkitFilter = "grayscale(0%)";
+        this.style.transform = "scale(1.05)";
+      });
+
+      // On Mouse Leave: Return to Black & White
+      img.addEventListener("mouseleave", function () {
+        this.style.filter = "grayscale(100%)";
+        this.style.webkitFilter = "grayscale(100%)";
+        this.style.transform = "scale(1)";
+      });
+    });
+
+    // --- 2. TAB FILTERING LOGIC ---
+    const filterBtns = document.querySelectorAll(".gallery-btn");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", function () {
+        const selectedFilter = this.getAttribute("data-filter");
+
+        // Active Button Styling
+        filterBtns.forEach((b) => {
+          b.classList.remove("bg-black", "text-white");
+          b.classList.add("hover:bg-gray-100", "text-black");
+        });
+        this.classList.add("bg-black", "text-white");
+        this.classList.remove("hover:bg-gray-100");
+
+        // Filter Photos
+        galleryItems.forEach((item) => {
+          const category = item.getAttribute("data-category");
+
+          if (selectedFilter === "all" || category === selectedFilter) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    });
+  });
+</script>
   </body>
 </html>
