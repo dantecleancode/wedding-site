@@ -288,6 +288,20 @@
       .fade-in {
         animation: fadeIn 0.5s ease-in-out;
       }
+  
+  /* Base black-and-white style for gallery images */
+  .bw-image {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    transition: filter 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+
+  /* Transition to full color on hover */
+  .gallery-item:hover .bw-image {
+    filter: grayscale(0%);
+    -webkit-filter: grayscale(0%);
+    transform: scale(1.05);
+  }
     </style>
   </head>
   <body class="bg-white text-black">
