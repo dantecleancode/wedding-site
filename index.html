@@ -309,16 +309,24 @@
   }
 
   /* Full color and slight zoom on hover */
-  .gallery-item:hover img {
-    filter: grayscale(0%);
-    -webkit-filter: grayscale(0%);
-    transform: scale(1.05);
+  .gallery-item img {
+    filter: grayscale(100%) !important;
+    -webkit-filter: grayscale(100%) !important;
+    transition: filter 0.4s ease-in-out, transform 0.4s ease-in-out !important;
   }
 
-  /* Utility class to hide gallery items smoothly */
+  /* Force image to full color and slight zoom when the parent card is hovered */
+  .gallery-item:hover img {
+    filter: grayscale(0%) !important;
+    -webkit-filter: grayscale(0%) !important;
+    transform: scale(1.05) !important;
+  }
+
+  /* Utility class to hide gallery items when filtering tabs */
   .gallery-item.is-hidden {
     display: none !important;
   }
+      
     </style>
   </head>
   <body class="bg-white text-black">
