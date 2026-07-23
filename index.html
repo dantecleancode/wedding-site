@@ -637,121 +637,87 @@
         </div>
       </div>
     </section> -->
-    <!-- Gallery Section -->
+<!-- Gallery Section -->
 <section id="gallery" class="py-20 bg-gray-5">
   <div class="container mx-auto px-6">
     <h2 class="text-3xl md:text-4xl font-serif text-center mb-16">
       Gallery
     </h2>
+    
+    <!-- Filter Buttons -->
     <div class="flex justify-center mb-10">
-      <div
-        class="inline-flex border border-black rounded-full overflow-hidden"
-      >
+      <div class="inline-flex border border-black rounded-full overflow-hidden">
         <button
-          class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider bg-black text-white focus:outline-none !rounded-button whitespace-nowrap"
+          type="button"
+          class="gallery-btn active-btn px-6 py-2 text-sm uppercase tracking-wider bg-black text-white focus:outline-none whitespace-nowrap cursor-pointer"
           data-filter="all"
         >
           All
         </button>
         <button
-          class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 focus:outline-none !rounded-button whitespace-nowrap"
+          type="button"
+          class="gallery-btn px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 text-black focus:outline-none whitespace-nowrap cursor-pointer"
           data-filter="engagement"
         >
           Engagement
         </button>
         <button
-          class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 focus:outline-none !rounded-button whitespace-nowrap"
+          type="button"
+          class="gallery-btn px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 text-black focus:outline-none whitespace-nowrap cursor-pointer"
           data-filter="travels"
         >
           Travels
         </button>
       </div>
     </div>
+
+    <!-- Gallery Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      <div
-        class="gallery-item group overflow-hidden cursor-pointer rounded-sm"
-        data-category="engagement"
-      >
+      <div class="gallery-item overflow-hidden cursor-pointer h-72" data-category="engagement">
         <img
           src="images/photo14.jpg"
           alt="Engagement Photo 1"
-          class="w-full h-72 object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-in-out"
+          class="w-full h-full object-cover"
         />
       </div>
-      <div
-        class="gallery-item group overflow-hidden cursor-pointer rounded-sm"
-        data-category="travels"
-      >
+      <div class="gallery-item overflow-hidden cursor-pointer h-72" data-category="travels">
         <img
           src="images/photo6.png"
           alt="Travel Photo 1"
-          class="w-full h-72 object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-in-out"
+          class="w-full h-full object-cover"
         />
       </div>
-      <div
-        class="gallery-item group overflow-hidden cursor-pointer rounded-sm"
-        data-category="engagement"
-      >
+      <div class="gallery-item overflow-hidden cursor-pointer h-72" data-category="engagement">
         <img
           src="images/photo4.png"
           alt="Engagement Photo 2"
-          class="w-full h-72 object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-in-out"
+          class="w-full h-full object-cover"
         />
       </div>
-      <div
-        class="gallery-item group overflow-hidden cursor-pointer rounded-sm"
-        data-category="travels"
-      >
+      <div class="gallery-item overflow-hidden cursor-pointer h-72" data-category="travels">
         <img
           src="images/photo8.png"
           alt="Travel Photo 2"
-          class="w-full h-72 object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-in-out"
+          class="w-full h-full object-cover"
         />
       </div>
-      <div
-        class="gallery-item group overflow-hidden cursor-pointer rounded-sm"
-        data-category="engagement"
-      >
+      <div class="gallery-item overflow-hidden cursor-pointer h-72" data-category="engagement">
         <img
           src="images/photo9.png"
           alt="Engagement Photo 3"
-          class="w-full h-72 object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-in-out"
+          class="w-full h-full object-cover"
         />
       </div>
-      <div
-        class="gallery-item group overflow-hidden cursor-pointer rounded-sm"
-        data-category="travels"
-      >
+      <div class="gallery-item overflow-hidden cursor-pointer h-72" data-category="travels">
         <img
           src="images/photo12.png"
           alt="Travel Photo 3"
-          class="w-full h-72 object-cover filter grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500 ease-in-out"
+          class="w-full h-full object-cover"
         />
       </div>
     </div>
   </div>
 </section>
-    <section id="bridalParty" class="py-20 md:py-32">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl md:text-5xl font-serif text-center mb-16">
-          Bridal Party
-        </h2>
-        <div class="mb-20">
-          <h3 class="text-3xl font-serif text-center mb-12">Bridesmaids</h3>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-            id="bridesmaidsGrid"
-          ></div>
-        </div>
-        <div>
-          <h3 class="text-3xl font-serif text-center mb-12">Groomsmen</h3>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-            id="groomsmenGrid"
-          ></div>
-        </div>
-      </div>
-    </section>
     <!-- RSVP Section 
     <section id="rsvp" class="py-20 bg-white">
       <div class="container mx-auto px-6">
@@ -1222,40 +1188,37 @@
     </script> -->
     document.addEventListener("DOMContentLoaded", function () {
   
-    // --- GALLERY FILTER LOGIC ---
-    <script>
-      const filterButtons = document.querySelectorAll(".gallery-filter");
-      const galleryItems = document.querySelectorAll(".gallery-item");
+   <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterBtns = document.querySelectorAll(".gallery-btn");
+    const galleryItems = document.querySelectorAll(".gallery-item");
 
-      if (filterButtons.length > 0 && galleryItems.length > 0) {
-        filterButtons.forEach((button) => {
-          button.addEventListener("click", function () {
-            // 1. Get the category from clicked button
-            const filterValue = this.getAttribute("data-filter");
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", function () {
+        const selectedFilter = this.getAttribute("data-filter");
 
-            // 2. Update active button styling (black background for active button)
-            filterButtons.forEach((btn) => {
-              btn.classList.remove("bg-black", "text-white");
-              btn.classList.add("hover:bg-gray-100", "text-black");
-            });
-            this.classList.add("bg-black", "text-white");
-            this.classList.remove("hover:bg-gray-100");
-
-            // 3. Show / Hide gallery items based on category
-            galleryItems.forEach((item) => {
-              const category = item.getAttribute("data-category");
-
-              if (filterValue === "all" || category === filterValue) {
-                item.classList.remove("hidden");
-              } else {
-                  item.classList.add("hidden");
-              }
-            });
-          });
+        // 1. Update active button styling
+        filterBtns.forEach(b => {
+          b.classList.remove("bg-black", "text-white");
+          b.classList.add("hover:bg-gray-100", "text-black");
         });
-      }
+        this.classList.add("bg-black", "text-white");
+        this.classList.remove("hover:bg-gray-100");
+
+        // 2. Filter gallery photos
+        galleryItems.forEach(item => {
+          const category = item.getAttribute("data-category");
+
+          if (selectedFilter === "all" || category === selectedFilter) {
+            item.classList.remove("is-hidden");
+          } else {
+            item.classList.add("is-hidden");
+          }
+        });
+      });
     });
-  </script>
+  });
+</script>
    <!-- <script id="rsvp-script">
       document.addEventListener("DOMContentLoaded", function () {
         const rsvpForm = document.getElementById("rsvp-form");
