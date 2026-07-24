@@ -630,34 +630,31 @@
         </div>
       </div>
     </section> -->
-<!-- Gallery Section -->
 <section id="gallery" class="py-20 bg-gray-5">
   <div class="container mx-auto px-6">
     <h2 class="text-3xl md:text-4xl font-serif text-center mb-16">
       Gallery
     </h2>
-    
-    <!-- Filter Buttons -->
     <div class="flex justify-center mb-10">
       <div class="inline-flex border border-black rounded-full overflow-hidden">
         <button
           type="button"
-          class="gallery-btn active-btn px-6 py-2 text-sm uppercase tracking-wider bg-black text-white focus:outline-none whitespace-nowrap cursor-pointer"
-          data-filter="all"
+          class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider bg-black text-white focus:outline-none whitespace-nowrap cursor-pointer"
+          onclick="filterGallery(this, 'all')"
         >
           All
         </button>
         <button
           type="button"
-          class="gallery-btn px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 text-black focus:outline-none whitespace-nowrap cursor-pointer"
-          data-filter="engagement"
+          class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 text-black focus:outline-none whitespace-nowrap cursor-pointer"
+          onclick="filterGallery(this, 'engagement')"
         >
           Engagement
         </button>
         <button
           type="button"
-          class="gallery-btn px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 text-black focus:outline-none whitespace-nowrap cursor-pointer"
-          data-filter="travels"
+          class="gallery-filter px-6 py-2 text-sm uppercase tracking-wider hover:bg-gray-100 text-black focus:outline-none whitespace-nowrap cursor-pointer"
+          onclick="filterGallery(this, 'travels')"
         >
           Travels
         </button>
