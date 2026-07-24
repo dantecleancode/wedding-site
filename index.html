@@ -1831,29 +1831,29 @@
       });
     </script>
    <script>
-  function filterGallery(selectedBtn, category) {
-    const filterButtons = document.querySelectorAll('.gallery-filter');
-    const galleryItems = document.querySelectorAll('.gallery-item');
+      function filterGallery(selectedBtn, category) {
+        const filterButtons = document.querySelectorAll('.gallery-filter');
+        const galleryItems = document.querySelectorAll('.gallery-item');
 
-    // 1. Update button styling
-    filterButtons.forEach((btn) => {
-      btn.classList.remove('bg-black', 'text-white');
-      btn.classList.add('hover:bg-gray-100', 'text-black');
-    });
-    selectedBtn.classList.add('bg-black', 'text-white');
-    selectedBtn.classList.remove('hover:bg-gray-100');
+        // 1. Update button styling
+        filterButtons.forEach((btn) => {
+          btn.classList.remove('bg-black', 'text-white');
+          btn.classList.add('hover:bg-gray-100', 'text-black');
+        });
+        selectedBtn.classList.add('bg-black', 'text-white');
+        selectedBtn.classList.remove('hover:bg-gray-100');
 
-    // 2. Filter gallery items instantly
-    galleryItems.forEach((item) => {
-      const itemCategory = item.getAttribute('data-category');
+        // 2. Filter gallery items instantly
+        galleryItems.forEach((item) => {
+          const itemCategory = item.getAttribute('data-category');
 
-      if (category === 'all' || itemCategory === category) {
-        item.style.setProperty('display', 'block', 'important');
-      } else {
-        item.style.setProperty('display', 'none', 'important');
+          if (category === 'all' || itemCategory === category) {
+            item.style.setProperty('display', 'block', 'important');
+          } else {
+            item.style.setProperty('display', 'none', 'important');
+          }
+        });
       }
-    });
-  }
-</script>
+    </script>
   </body>
 </html>
