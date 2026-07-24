@@ -1831,37 +1831,29 @@
       });
     </script>
    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const filterButtons = document.querySelectorAll(".gallery-filter");
-      const galleryItems = document.querySelectorAll(".gallery-item");
+  function filterGallery(selectedBtn, category) {
+    const filterButtons = document.querySelectorAll('.gallery-filter');
+    const galleryItems = document.querySelectorAll('.gallery-item');
 
-        if (filterButtons.length > 0 && galleryItems.length > 0) {
-          filterButtons.forEach((button) => {
-            button.addEventListener("click", function () {
-              const filterValue = this.getAttribute("data-filter");
+    // 1. Update button styling
+    filterButtons.forEach((btn) => {
+      btn.classList.remove('bg-black', 'text-white');
+      btn.classList.add('hover:bg-gray-100', 'text-black');
+    });
+    selectedBtn.classList.add('bg-black', 'text-white');
+    selectedBtn.classList.remove('hover:bg-gray-100');
 
-              // 1. Update active button styling
-              filterButtons.forEach((btn) => {
-                btn.classList.remove("bg-black", "text-white");
-                btn.classList.add("hover:bg-gray-100", "text-black");
-              });
-              this.classList.add("bg-black", "text-white");
-              this.classList.remove("hover:bg-gray-100");
+    // 2. Filter gallery items instantly
+    galleryItems.forEach((item) => {
+      const itemCategory = item.getAttribute('data-category');
 
-              // 2. Hide / Show gallery items
-              galleryItems.forEach((item) => {
-                const category = item.getAttribute("data-category");
-
-                if (filterValue === "all" || category === filterValue) {
-                  item.classList.remove("hidden-tab");
-                } else {
-                    item.classList.add("hidden-tab");
-                }
-              });
-            });
-          });
-        }
-      });
-    </script> 
+      if (category === 'all' || itemCategory === category) {
+        item.style.setProperty('display', 'block', 'important');
+      } else {
+        item.style.setProperty('display', 'none', 'important');
+      }
+    });
+  }
+</script>
   </body>
 </html>
