@@ -2086,5 +2086,36 @@
     });
   };
 </script>
+    <script>
+  window.toggleHoneymoonModal = function(show) {
+    const modal = document.getElementById('honeymoon-modal');
+    if (modal) {
+      if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+  };
+
+  window.copyToClipboard = function(elementId, btnElement) {
+    const targetElement = document.getElementById(elementId);
+    if (!targetElement) return;
+
+    const textToCopy = targetElement.innerText;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const originalText = btnElement.innerText;
+      btnElement.innerText = 'Copied!';
+      btnElement.classList.add('bg-black', 'text-white');
+      
+      setTimeout(() => {
+        btnElement.innerText = originalText;
+        btnElement.classList.remove('bg-black', 'text-white');
+      }, 2000);
+    });
+  };
+</script>
   </body>
 </html>
