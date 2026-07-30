@@ -980,7 +980,7 @@
       </div>
     </section>
 
-         <Registry Section 
+         <!-- Registry Section -->
     <!-- Honeymoon Fund Section -->
 <section id="honeymoon-fund" class="py-20 bg-gray-50 text-center border-t border-gray-200">
   <div class="container mx-auto px-6 max-w-2xl">
@@ -997,7 +997,7 @@
     <!-- Trigger Button for Payment Modal -->
     <button
       type="button"
-      onclick="toggleHoneymoonModal(true)"
+      onclick="window.toggleHoneymoonModal(true)"
       class="inline-block px-8 py-3 bg-black text-white text-sm uppercase tracking-wider rounded-full hover:bg-gray-800 transition-colors duration-300 shadow-sm cursor-pointer"
     >
       Contribute Here
@@ -1006,12 +1006,13 @@
 </section>
 
 <!-- Honeymoon Fund Payment Modal -->
-<div id="honeymoon-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+<div id="honeymoon-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
   <div class="bg-white rounded-2xl max-w-md w-full p-6 md:p-8 relative shadow-2xl text-left border border-gray-100">
     <!-- Close Button -->
     <button 
-      onclick="toggleHoneymoonModal(false)"
-      class="absolute top-4 right-4 text-gray-400 hover:text-black text-xl font-bold p-2 focus:outline-none"
+      type="button"
+      onclick="window.toggleHoneymoonModal(false)"
+      class="absolute top-4 right-4 text-gray-400 hover:text-black text-xl font-bold p-2 focus:outline-none cursor-pointer"
     >
       ✕
     </button>
@@ -1026,10 +1027,10 @@
           <span class="w-8 h-8 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xs">Z</span>
           <div>
             <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">Zelle</p>
-            <p id="346-504-8643" class="text-sm font-medium text-black">346-504-8643</p>
+            <p id="zelle-handle" class="text-sm font-medium text-black">346-504-8643</p>
           </div>
         </div>
-        <button onclick="copyToClipboard('zelle-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium">Copy</button>
+        <button onclick="window.copyToClipboard('zelle-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium cursor-pointer">Copy</button>
       </div>
 
       <!-- Cash App -->
@@ -1038,10 +1039,10 @@
           <span class="w-8 h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-bold text-xs">$</span>
           <div>
             <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">Cash App</p>
-            <p id="$dertyfresh" class="text-sm font-medium text-black">$dertyfresh</p>
+            <p id="cashapp-handle" class="text-sm font-medium text-black">$dertyfresh</p>
           </div>
         </div>
-        <button onclick="copyToClipboard('cashapp-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium">Copy</button>
+        <button onclick="window.copyToClipboard('cashapp-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium cursor-pointer">Copy</button>
       </div>
 
       <!-- Apple Pay -->
@@ -1050,10 +1051,10 @@
           <span class="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-xs"></span>
           <div>
             <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">Apple Pay</p>
-            <p id="713-245-0846" class="text-sm font-medium text-black">713-245-0846</p>
+            <p id="applepay-handle" class="text-sm font-medium text-black">713-245-0846</p>
           </div>
         </div>
-        <button onclick="copyToClipboard('applepay-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium">Copy</button>
+        <button onclick="window.copyToClipboard('applepay-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium cursor-pointer">Copy</button>
       </div>
 
       <!-- PayPal -->
@@ -1062,14 +1063,15 @@
           <span class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">P</span>
           <div>
             <p class="text-xs font-semibold uppercase tracking-wide text-gray-500">PayPal</p>
-            <p id="craytondante@gmail.com" class="text-sm font-medium text-black">paypal.me/craytondante</p>
+            <p id="paypal-handle" class="text-sm font-medium text-black">paypal.me/craytondante</p>
           </div>
         </div>
-        <button onclick="copyToClipboard('paypal-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium">Copy</button>
+        <button onclick="window.copyToClipboard('paypal-handle', this)" class="text-xs px-3 py-1.5 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 font-medium cursor-pointer">Copy</button>
       </div>
     </div>
   </div>
 </div>
+
 <!-- Registry Section -->
 <section id="registry" class="py-20 bg-white text-center border-t border-gray-200">
   <div class="container mx-auto px-6 max-w-2xl">
