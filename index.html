@@ -1092,7 +1092,7 @@
             >
             <select
               id="attendance"
-              name="attendance"
+              name="attending"
               class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors bg-white"
               required
             >
@@ -1150,7 +1150,7 @@
               >
               <textarea
                 id="message"
-                name="message"
+                name="message_to_couple"
                 rows="4"
                 class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
               ></textarea>
@@ -1620,7 +1620,7 @@
     const confirmModal = document.getElementById("confirm-modal");
 
     // Elements for Plus-One UI
-    const attendanceSelect = document.querySelector('[name="attendance"]');
+    const attendanceSelect = document.querySelector('[name="attending"]');
     const plusOneSection = document.getElementById("plusOneSection");
     const plusOneSelect = document.getElementById("plusOneSelect");
     const plusOneNamesContainer = document.getElementById("plusOneNamesContainer");
@@ -1696,10 +1696,10 @@
 
         const data = {
           "Name": document.querySelector('[name="guest_name"]')?.value || "",
-          "Attending": document.querySelector('[name="attendance"]')?.value || "",
+          "Attending": document.querySelector('[name="attending"]')?.value || "",
           "Guests Count": document.querySelector('#plusOneSelect')?.value || "0",
           "Plus One Names": guestNames.length > 0 ? guestNames.join(", ") : "None",
-          "Message To Couple": document.querySelector('[name="message"]')?.value || ""
+          "Message To Couple": document.querySelector('[name="message_to_couple"]')?.value || ""
         };
 
         fetch("https://formspree.io/f/xwvgqygj", {
