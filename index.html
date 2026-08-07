@@ -1618,6 +1618,8 @@
         const successModal = document.getElementById("success-modal");
         const closeModal = document.getElementById("close-modal");
         const confirmModal = document.getElementById("confirm-modal");
+        const plusOneInputs = document.querySelectorAll('[name^="guest_plus_one_"]');
+        const guestNames = Array.from(plusOneInputs).map(input => input.value).filter(Boolean);
 
         // Form submission
         rsvpForm.addEventListener("submit", function (e) {
@@ -1634,7 +1636,8 @@
           const data = {
            "Name": document.querySelector('[name="guest_name"]').value,
            "Attending": document.querySelector('[name="attendance"]').value,
-          // "Guests": document.querySelector('[name="bringing_plus_one"]').value,
+           "Guests Count": document.querySelector('#plusOneSelect')?.value || "0",
+          "Plus One Names": guestNames.length > 0 ? guestNames.join(', ') : "None",
            "Message To Couple": document.querySelector('[name="message"]').value
           };
 
