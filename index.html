@@ -1632,11 +1632,11 @@
           
           // ✅ Correct Mapping for SheetDB
           const data = {
-           "Name": document.querySelector('[Full Name="name"]').value,
-           "Email": document.querySelector('[Email Address="email"]').value,
-           "Attending": document.querySelector('[Will you be attending?="attending"]').value,
-           "Guests": document.querySelector('[Number of Guests"guests"]').value,
-          "Meal Preference": document.querySelector('[Meal Preference="meal"]').value,
+           "Name": document.querySelector('[name="guest_name"]').value,
+          // "Email": document.querySelector('[Email Address="email"]').value,
+           "Attending": document.querySelector('[name="attendance"]').value,
+           "Guests": document.querySelector('[name="bringing_plus_one"]').value,
+          //"Meal Preference": document.querySelector('[Meal Preference="meal"]').value,
           "Message To Couple": document.querySelector('[Message to the Couple (Optional)="message"]').value
           };
 
