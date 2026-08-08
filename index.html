@@ -1695,11 +1695,10 @@
           .filter(Boolean);
 
         const data = {
-          "Name": document.querySelector('[name="guest_name"]')?.value || "",
-          "Attending": document.querySelector('[name="attending"]')?.value || "",
-          "Guests Count": document.querySelector('#plusOneSelect')?.value || "0",
-          "Plus One Names": guestNames.length > 0 ? guestNames.join(", ") : "None",
-          "Message To Couple": document.querySelector('[name="message_to_couple"]')?.value || ""
+          "guest_name": document.querySelector('[name="guest_name"]')?.value || "",
+          "attending": document.querySelector('[name="attending"]')?.value || "",
+          "plus_one_count": document.querySelector('#plusOneSelect')?.value || "0",
+          "message_to_couple": document.querySelector('[name="message_to_couple"]')?.value || ""
         };
 
         fetch("https://formspree.io/f/xwvgqygj", {
