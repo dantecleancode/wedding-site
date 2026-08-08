@@ -1577,305 +1577,38 @@
         });
       });
     </script> -->
-    <script id="scroll-script">
-      document.addEventListener("DOMContentLoaded", function () {
-        const scrollTopButton = document.getElementById("scroll-top");
-        // Show/hide scroll to top button
-        window.addEventListener("scroll", function () {
-          if (window.scrollY > 500) {
-            scrollTopButton.classList.add("visible");
-          } else {
-            scrollTopButton.classList.remove("visible");
-          }
-        });
-        // Scroll to top when button is clicked
-        scrollTopButton.addEventListener("click", function () {
+  <script id="scroll-script">
+  document.addEventListener("DOMContentLoaded", function () {
+    const scrollTopButton = document.getElementById("scroll-top");
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 500) {
+        scrollTopButton?.classList.add("visible");
+      } else {
+        scrollTopButton?.classList.remove("visible");
+      }
+    });
+    scrollTopButton?.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute("href");
+        if (targetId === "#") return;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
           window.scrollTo({
-            top: 0,
+            top: targetElement.offsetTop - 80,
             behavior: "smooth",
           });
-        });
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-          anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute("href");
-            if (targetId === "#") return;
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: "smooth",
-              });
-            }
-          });
-        });
-      });
-    </script>
-  <script id="rsvpScript">
-  document.addEventListener("DOMContentLoaded", function () {
-    const rsvpForm = document.getElementById("rsvp-form");
-    const successModal = document.getElementById("success-modal");
-    const closeModal = document.getElementById("close-modal");
-    const confirmModal = document.getElementById("confirm-modal");
-
-    // Elements for Plus-One UI
-    const attendanceSelect = document.querySelector('[name="attending"]');
-    const plusOneSection = document.getElementById("plusOneSection");
-    const plusOneSelect = document.getElementById("plusOneSelect");
-    const plusOneNamesContainer = document.getElementById("plusOneNamesContainer");
-
-    // 1. Show/Hide Plus-One Section on Attendance selection
-    if (attendanceSelect && plusOneSection) {
-      attendanceSelect.addEventListener("change", function (e) {
-        const value = e.target.value.toLowerCase();
-        const isAttending = value === "attending" || value === "yes";
-
-        if (isAttending) {
-          // Ensure options exist in dropdown (0, +1)
-          if (plusOneSelect && plusOneSelect.options.length <= 1) {
-            plusOneSelect.innerHTML = `
-              <option value="0">0 Additional Guests</option>
-              <option value="1">+1 Guest</option>
-            `;
-          }
-          plusOneSection.classList.remove("hidden");
-        } else {
-          // Hide section if declining
-          plusOneSection.classList.add("hidden");
-          if (plusOneNamesContainer) {
-            plusOneNamesContainer.classList.add("hidden");
-            plusOneNamesContainer.innerHTML = "";
-          }
-          if (plusOneSelect) plusOneSelect.value = "0";
         }
       });
-    }
-
-    // 2. Generate Plus-One Name Text Input matching Formspree column names (plus_one_name_1, etc.)
-    if (plusOneSelect && plusOneNamesContainer) {
-      plusOneSelect.addEventListener("change", function (e) {
-        const count = parseInt(e.target.value, 10) || 0;
-        plusOneNamesContainer.innerHTML = ""; // Clear previous inputs
-
-        if (count > 0) {
-          plusOneNamesContainer.classList.remove("hidden");
-          for (let i = 1; i <= count; i++) {
-            const inputGroup = document.createElement("div");
-            inputGroup.className = "mb-4";
-            inputGroup.innerHTML = `
-              <label class="block text-xs uppercase tracking-wider font-semibold text-gray-700 mb-2">
-                Guest ${i} Full Name
-              </label>
-              <input
-                type="text"
-                name="plus_one_name_${i}"
-                placeholder="Enter Guest ${i} Full Name"
-                class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
-                required
-              />
-            `;
-            plusOneNamesContainer.appendChild(inputGroup);
-          }
-        } else {
-          plusOneNamesContainer.classList.add("hidden");
-        }
-      });
-    }
-
-    // 3. Form Submission
-    if (rsvpForm) {
-      rsvpForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        // Base payload matching existing Formspree columns
-        const data = {
-          "guest_name": document.querySelector('[name="guest_name"]')?.value || "",
-          "attending": document.querySelector('[name="attending"]')?.value || "",
-          "plus_one_count": document.querySelector('#plusOneSelect')?.value || "0",
-          "message_to_couple": document.querySelector('[name="message_to_couple"]')?.value || ""
-        };
-
-        // Attach dynamic guest names (plus_one_name_1, plus_one_name_2, etc.) to payload
-        const plusOneInputs = document.querySelectorAll('[name^="plus_one_name_"]');
-        plusOneInputs.forEach((input) => {
-          if (input.value.trim() !== "") {
-            data[input.name] = input.value.trim();
-          }
-        });
-
-        fetch("https://formspree.io/f/xwvgqygj", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(data)
-        })
-          .then((res) => {
-            if (res.ok) {
-              if (successModal) successModal.classList.remove("hidden");
-              rsvpForm.reset();
-              if (plusOneSection) plusOneSection.classList.add("hidden");
-              if (plusOneNamesContainer) {
-                plusOneNamesContainer.classList.add("hidden");
-                plusOneNamesContainer.innerHTML = "";
-              }
-            } else {
-              throw new Error("Form submission failed");
-            }
-          })
-          .catch((err) => {
-            alert("There was an error submitting your RSVP. Please try again.");
-            console.error(err);
-          });
-      });
-    }
-
-    // Close modal listeners
-    if (closeModal) {
-      closeModal.addEventListener("click", function () {
-        successModal.classList.add("hidden");
-      });
-    }
-    if (confirmModal) {
-      confirmModal.addEventListener("click", function () {
-        successModal.classList.add("hidden");
-      });
-    }
-    if (successModal) {
-      successModal.addEventListener("click", function (e) {
-        if (e.target === successModal) {
-          successModal.classList.add("hidden");
-        }
-      });
-    }
+    });
   });
 </script>
 
- <!-- <script id="wedding-logic-script">
-  // 1. Guest List Data
-  const guestList = [
-    { name: "lauren ware", allowedPlusOne: false },
-    { name: "jaleja page", allowedPlusOne: false },
-    { name: "tiffani", allowedPlusOne: true }
-  ];
-
-  document.addEventListener("DOMContentLoaded", function () {
-    // DOM Element References
-    const guestNameInput = document.getElementById("name");
-    const attendanceContainer = document.getElementById("attendanceContainer");
-    const attendanceSelect = document.getElementById("attendance");
-    const dynamicFields = document.getElementById("dynamicFields");
-    const plusOneSection = document.getElementById("plusOneSection");
-    const plusOneSelect = document.getElementById("plusOneSelect");
-    const plusOneNameContainer = document.getElementById("plusOneNameContainer");
-    const rsvpForm = document.getElementById("rsvp-form");
-    const statusDiv = document.getElementById("form-status");
-    const submitBtn = document.getElementById("submit-btn");
-
-    let canHavePlusOne = false;
-
-    // --- A. GUEST NAME MATCHING LOGIC ---
-    if (guestNameInput) {
-      guestNameInput.addEventListener("input", function () {
-        const enteredName = this.value.trim().toLowerCase();
-        const matchedGuest = guestList.find(g => g.name === enteredName);
-
-        if (matchedGuest) {
-          canHavePlusOne = matchedGuest.allowedPlusOne;
-          if (attendanceContainer) attendanceContainer.classList.remove("hidden");
-        } else {
-          canHavePlusOne = false;
-        }
-      });
-    }
-
-    // --- B. ATTENDANCE & DYNAMIC FIELDS TOGGLE ---
-    if (attendanceSelect) {
-      attendanceSelect.addEventListener("change", function () {
-        if (this.value === "attending") {
-          if (dynamicFields) dynamicFields.classList.remove("hidden");
-          
-          if (canHavePlusOne && plusOneSection) {
-            plusOneSection.classList.remove("hidden");
-          } else if (plusOneSection) {
-            plusOneSection.classList.add("hidden");
-          }
-        } else {
-          if (dynamicFields) dynamicFields.classList.add("hidden");
-        }
-      });
-    }
-
-    // --- C. PLUS-ONE NAME INPUT TOGGLE ---
-    if (plusOneSelect && plusOneNameContainer) {
-      plusOneSelect.addEventListener("change", function () {
-        if (this.value === "yes") {
-          plusOneNameContainer.classList.remove("hidden");
-        } else {
-          plusOneNameContainer.classList.add("hidden");
-        }
-      });
-    }
-
-    // --- D. FORMSPREE BACKGROUND SUBMISSION (AJAX) ---
-    if (rsvpForm) {
-      rsvpForm.addEventListener("submit", function (e) {
-        // Prevent default redirect to Formspree site
-        e.preventDefault();
-
-        // Update button status
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Sending...";
-        }
-
-        const data = new FormData(rsvpForm);
-
-        fetch(rsvpForm.action, {
-          method: "POST",
-          body: data,
-          headers: {
-            'Accept': 'application/json'
-          }
-        }).then(response => {
-          if (response.ok) {
-            // Show inline success message
-            if (statusDiv) {
-              statusDiv.classList.remove("hidden", "border-red-500", "text-red-600");
-              statusDiv.classList.add("border-black", "text-black", "bg-gray-50");
-              statusDiv.innerHTML = "✨ Thank you! Your RSVP has been received.";
-            }
-            
-            // Reset form
-            rsvpForm.reset();
-            if (dynamicFields) dynamicFields.classList.add("hidden");
-          } else {
-            if (statusDiv) {
-              statusDiv.classList.remove("hidden");
-              statusDiv.classList.add("border-red-500", "text-red-600");
-              statusDiv.innerHTML = "Oops! There was a problem submitting your RSVP.";
-            }
-          }
-        }).catch(error => {
-          if (statusDiv) {
-            statusDiv.classList.remove("hidden");
-            statusDiv.classList.add("border-red-500", "text-red-600");
-            statusDiv.innerHTML = "Oops! There was a network issue. Please try again.";
-          }
-        }).finally(() => {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit RSVP";
-          }
-        });
-      });
-    }
-  });
-  </script> -->
-        <script id="wedding-logic-script">
-  // 1. Guest List with Max Allowed Plus-Ones
+<script id="wedding-rsvp-combined-script">
+  // 1. Guest List
   const guestList = [
     { name: "lauren ware", maxPlusOnes: 0 },
     { name: "jaleja page", maxPlusOnes: 0 },
@@ -1889,12 +1622,12 @@
     { name: "jonathan osei-kuffour", maxPlusOnes: 1 },
     { name: "danielle osei-kuffour", maxPlusOnes: 1 },
     { name: "derrick crayton", maxPlusOnes: 3 },
-    { name: "darryl foster", maxPlusOnes: 0  },
+    { name: "darryl foster", maxPlusOnes: 0 },
     { name: "tola adegbite", maxPlusOnes: 0 },
     { name: "billy wayne", maxPlusOnes: 0 },
     { name: "derrick brooks", maxPlusOnes: 1 },
     { name: "donald bell", maxPlusOnes: 1 },
-    { name: "cherlon bell", maxPlusOnes: 1},
+    { name: "cherlon bell", maxPlusOnes: 1 },
     { name: "troy broussard", maxPlusOnes: 1 },
     { name: "dietra williams", maxPlusOnes: 0 },
     { name: "bernice williams", maxPlusOnes: 0 },
@@ -1985,8 +1718,10 @@
     { name: "jara poindexter", maxPlusOnes: 1 },
     { name: "darryl tennard", maxPlusOnes: 0 },
     { name: "stephanique smith", maxPlusOnes: 0 },
-    { name: "bishop dr. corey wilson", "corey wilson", maxPlusOnes: 1 },
-    { name: "first tangie wilson", "tangie wilson", maxPlusOnes: 1 },
+    { name: "bishop dr. corey wilson", maxPlusOnes: 1 },
+    { name: "corey wilson", maxPlusOnes: 1 },
+    { name: "first tangie wilson", maxPlusOnes: 1 },
+    { name: "tangie wilson", maxPlusOnes: 1 },
     { name: "ariel holliday", maxPlusOnes: 1 },
     { name: "ulysses grady", maxPlusOnes: 1 },
     { name: "patrice arrington", maxPlusOnes: 0 },
@@ -2006,13 +1741,10 @@
     { name: "querious graves", maxPlusOnes: 0 },
     { name: "jenard wilson", maxPlusOnes: 0 },
     { name: "chandler manuel", maxPlusOnes: 0 },
-    { name: "Terry Tan", maxPlusOnes: 0 }, 
-    
-    
+    { name: "Terry Tan", maxPlusOnes: 0 }
   ];
 
   document.addEventListener("DOMContentLoaded", function () {
-    // DOM Element References
     const guestNameInput = document.getElementById("name");
     const attendanceContainer = document.getElementById("attendanceContainer");
     const attendanceSelect = document.getElementById("attendance");
@@ -2023,26 +1755,24 @@
     const rsvpForm = document.getElementById("rsvp-form");
     const statusDiv = document.getElementById("form-status");
     const submitBtn = document.getElementById("submit-btn");
+    const successModal = document.getElementById("success-modal");
 
     let allowedCount = 0;
 
-    // --- A. GUEST NAME MATCHING & DROPDOWN POPULATION ---
+    // A. Guest Name Matcher
     if (guestNameInput) {
       guestNameInput.addEventListener("input", function () {
         const enteredName = this.value.trim().toLowerCase();
-        const matchedGuest = guestList.find(g => g.name === enteredName);
+        const matchedGuest = guestList.find((g) => g.name.toLowerCase() === enteredName);
 
         if (matchedGuest) {
           allowedCount = matchedGuest.maxPlusOnes;
-
-          // Populate the plus-one dropdown based on guest limit
           if (plusOneSelect) {
             plusOneSelect.innerHTML = `<option value="0">0 Additional Guests</option>`;
             for (let i = 1; i <= allowedCount; i++) {
-              plusOneSelect.innerHTML += `<option value="${i}">+${i} Guest${i > 1 ? 's' : ''}</option>`;
+              plusOneSelect.innerHTML += `<option value="${i}">+${i} Guest${i > 1 ? "s" : ""}</option>`;
             }
           }
-
           if (attendanceContainer) attendanceContainer.classList.remove("hidden");
         } else {
           allowedCount = 0;
@@ -2051,13 +1781,11 @@
       });
     }
 
-    // --- B. ATTENDANCE SELECTION TOGGLE ---
+    // B. Attendance Select
     if (attendanceSelect) {
       attendanceSelect.addEventListener("change", function () {
-        if (this.value === "attending") {
+        if (this.value === "attending" || this.value === "yes") {
           if (dynamicFields) dynamicFields.classList.remove("hidden");
-
-          // Show plus-one select only if they have maxPlusOnes > 0
           if (allowedCount > 0 && plusOneSection) {
             plusOneSection.classList.remove("hidden");
           } else if (plusOneSection) {
@@ -2069,23 +1797,22 @@
       });
     }
 
-    // --- C. DYNAMIC NAME INPUTS GENERATOR ---
+    // C. Generate Dynamic Plus-One Text Fields with name="plus_one_name_X"
     if (plusOneSelect && plusOneNamesContainer) {
       plusOneSelect.addEventListener("change", function () {
-        const count = parseInt(this.value, 10);
-        plusOneNamesContainer.innerHTML = ""; // Reset existing inputs
+        const count = parseInt(this.value, 10) || 0;
+        plusOneNamesContainer.innerHTML = "";
 
         if (count > 0) {
           plusOneNamesContainer.classList.remove("hidden");
-
-          // Generate input field for each additional guest selected
           for (let i = 1; i <= count; i++) {
             const fieldGroup = document.createElement("div");
+            fieldGroup.className = "mb-4";
             fieldGroup.innerHTML = `
-              <label for="plusOneName_${i}" class="block text-sm uppercase tracking-wider mb-2">Guest ${i} Full Name</label>
+              <label for="plus_one_name_${i}" class="block text-sm uppercase tracking-wider mb-2">Guest ${i} Full Name</label>
               <input
                 type="text"
-                id="plusOneName_${i}"
+                id="plus_one_name_${i}"
                 name="plus_one_name_${i}"
                 placeholder="Enter guest ${i} full name"
                 class="w-full px-4 py-3 border border-gray-300 focus:border-black outline-none transition-colors"
@@ -2100,67 +1827,81 @@
       });
     }
 
-    // --- D. FORMSPREE BACKGROUND SUBMISSION (AJAX) ---
+    // D. Consolidated AJAX Submit
     if (rsvpForm) {
       rsvpForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        e.stopPropagation();
 
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.textContent = "Sending...";
         }
 
-        const formData = new FormData(rsvpForm);
+        // Build Payload explicitly to guarantee all fields & plus ones attach cleanly
+        const data = {
+          guest_name: guestNameInput?.value || "",
+          attending: attendanceSelect?.value || "",
+          plus_one_count: plusOneSelect?.value || "0",
+          message_to_couple: document.querySelector('[name="message_to_couple"]')?.value || document.querySelector('[name="message"]')?.value || ""
+        };
 
-        fetch(rsvpForm.action, {
-          method: "POST",
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        })
-        .then(response => {
-          if (response.ok) {
-            if (statusDiv) {
-              statusDiv.classList.remove("hidden", "border-red-500", "text-red-600");
-              statusDiv.classList.add("border-black", "text-black", "bg-gray-50");
-              statusDiv.innerHTML = "✨ Thank you! Your RSVP has been received.";
-            }
-
-            rsvpForm.reset();
-
-            if (dynamicFields) dynamicFields.classList.add("hidden");
-            if (attendanceContainer) attendanceContainer.classList.add("hidden");
-            if (plusOneNamesContainer) plusOneNamesContainer.innerHTML = "";
-          } else {
-            return response.json().then(data => {
-              if (statusDiv) {
-                statusDiv.classList.remove("hidden");
-                statusDiv.classList.add("border-red-500", "text-red-600");
-                statusDiv.innerHTML = data.errors ? data.errors.map(err => err.message).join(", ") : "Submission failed.";
-              }
-            });
-          }
-        })
-        .catch(error => {
-          if (statusDiv) {
-            statusDiv.classList.remove("hidden");
-            statusDiv.classList.add("border-red-500", "text-red-600");
-            statusDiv.innerHTML = "Network error. Please try again.";
-          }
-        })
-        .finally(() => {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit RSVP";
+        // Scrape generated plus one inputs directly
+        const plusOneInputs = plusOneNamesContainer ? plusOneNamesContainer.querySelectorAll("input") : [];
+        plusOneInputs.forEach((input, index) => {
+          if (input.value.trim() !== "") {
+            data[`plus_one_name_${index + 1}`] = input.value.trim();
           }
         });
+
+        fetch("https://formspree.io/f/xwvgqygj", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify(data)
+        })
+          .then((res) => {
+            if (res.ok) {
+              if (statusDiv) {
+                statusDiv.classList.remove("hidden", "border-red-500", "text-red-600");
+                statusDiv.classList.add("border-black", "text-black", "bg-gray-50");
+                statusDiv.innerHTML = "✨ Thank you! Your RSVP has been received.";
+              }
+              if (successModal) successModal.classList.remove("hidden");
+
+              rsvpForm.reset();
+
+              if (dynamicFields) dynamicFields.classList.add("hidden");
+              if (attendanceContainer) attendanceContainer.classList.add("hidden");
+              if (plusOneSection) plusOneSection.classList.add("hidden");
+              if (plusOneNamesContainer) {
+                plusOneNamesContainer.classList.add("hidden");
+                plusOneNamesContainer.innerHTML = "";
+              }
+            } else {
+              return res.json().then((data) => {
+                throw new Error(data.errors ? data.errors.map((e) => e.message).join(", ") : "Submission failed.");
+              });
+            }
+          })
+          .catch((err) => {
+            if (statusDiv) {
+              statusDiv.classList.remove("hidden");
+              statusDiv.classList.add("border-red-500", "text-red-600");
+              statusDiv.innerHTML = err.message || "Network error. Please try again.";
+            }
+          })
+          .finally(() => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = "Submit RSVP";
+            }
+          });
       });
     }
   });
 </script>
-
     <script id="bridalPartyScript">
       document.addEventListener("DOMContentLoaded", function () {
         const bridalPartyData = {
