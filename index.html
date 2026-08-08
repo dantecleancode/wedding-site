@@ -1485,98 +1485,7 @@
         }, 1000);
       });
     </script>
-   <!-- <script id="gallery-script">
-      document.addEventListener("DOMContentLoaded", function () {
-        const galleryItems = document.querySelectorAll(".gallery-item");
-        const filterButtons = document.querySelectorAll(".gallery-filter");
-        // Filter gallery items
-        filterButtons.forEach((button) => {
-          button.addEventListener("click", function () {
-            const filter = this.getAttribute("data-filter");
-            // Update active button
-            filterButtons.forEach((btn) => {
-              btn.classList.remove("bg-black", "text-white");
-              btn.classList.add("hover:bg-gray-100");
-            });
-            this.classList.add("bg-black", "text-white");
-            this.classList.remove("hover:bg-gray-100");
-            // Show/hide gallery items
-            galleryItems.forEach((item) => {
-              if (
-                filter === "all" ||
-                item.getAttribute("data-category") === filter
-              ) {
-                item.style.display = "block";
-              } else {
-                item.style.display = "none";
-              }
-            });
-          });
-        });
-     
-    </script> 
-    document.addEventListener("DOMContentLoaded", function () { -->
-  
- <!-- <script id="gallery-script">
-  document.addEventListener("DOMContentLoaded", function () {
-    const filterBtns = document.querySelectorAll(".gallery-btn");
-    const galleryItems = document.querySelectorAll(".gallery-item");
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener("click", function () {
-        const selectedFilter = this.getAttribute("data-filter");
-
-        // 1. Update active button styling
-        filterBtns.forEach(b => {
-          b.classList.remove("bg-black", "text-white");
-          b.classList.add("hover:bg-gray-100", "text-black");
-        });
-        this.classList.add("bg-black", "text-white");
-        this.classList.remove("hover:bg-gray-100");
-
-        // 2. Filter gallery photos
-        galleryItems.forEach(item => {
-          const category = item.getAttribute("data-category");
-
-          if (selectedFilter === "all" || category === selectedFilter) {
-            item.classList.remove("is-hidden");
-          } else {
-            item.classList.add("is-hidden");
-          }
-        });
-      });
-    });
-  });
-</script> -->
-   <!-- <script id="rsvp-script">
-      document.addEventListener("DOMContentLoaded", function () {
-        const rsvpForm = document.getElementById("rsvp-form");
-        const successModal = document.getElementById("success-modal");
-        const closeModal = document.getElementById("close-modal");
-        const confirmModal = document.getElementById("confirm-modal");
-        // Form submission
-        rsvpForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          // Show success modal
-          successModal.classList.remove("hidden");
-          // Reset form
-          rsvpForm.reset();
-        });
-        // Close modal
-        closeModal.addEventListener("click", function () {
-          successModal.classList.add("hidden");
-        });
-        confirmModal.addEventListener("click", function () {
-          successModal.classList.add("hidden");
-        });
-        // Close modal when clicking outside
-        successModal.addEventListener("click", function (e) {
-          if (e.target === successModal) {
-            successModal.classList.add("hidden");
-          }
-        });
-      });
-    </script> -->
+ 
   <script id="scroll-script">
   document.addEventListener("DOMContentLoaded", function () {
     const scrollTopButton = document.getElementById("scroll-top");
@@ -1755,7 +1664,11 @@
     const rsvpForm = document.getElementById("rsvp-form");
     const statusDiv = document.getElementById("form-status");
     const submitBtn = document.getElementById("submit-btn");
+
+    // Modal DOM references
     const successModal = document.getElementById("success-modal");
+    const closeModal = document.getElementById("close-modal");
+    const confirmModal = document.getElementById("confirm-modal");
 
     let allowedCount = 0;
 
@@ -1797,7 +1710,7 @@
       });
     }
 
-    // C. Generate Dynamic Plus-One Text Fields with name="plus_one_name_X"
+    // C. Generate Dynamic Plus-One Text Fields
     if (plusOneSelect && plusOneNamesContainer) {
       plusOneSelect.addEventListener("change", function () {
         const count = parseInt(this.value, 10) || 0;
@@ -1837,7 +1750,6 @@
           submitBtn.textContent = "Sending...";
         }
 
-        // Build Payload explicitly to guarantee all fields & plus ones attach cleanly
         const data = {
           guest_name: guestNameInput?.value || "",
           attending: attendanceSelect?.value || "",
@@ -1845,7 +1757,6 @@
           message_to_couple: document.querySelector('[name="message_to_couple"]')?.value || document.querySelector('[name="message"]')?.value || ""
         };
 
-        // Scrape generated plus one inputs directly
         const plusOneInputs = plusOneNamesContainer ? plusOneNamesContainer.querySelectorAll("input") : [];
         plusOneInputs.forEach((input, index) => {
           if (input.value.trim() !== "") {
@@ -1868,6 +1779,7 @@
                 statusDiv.classList.add("border-black", "text-black", "bg-gray-50");
                 statusDiv.innerHTML = "✨ Thank you! Your RSVP has been received.";
               }
+              
               if (successModal) successModal.classList.remove("hidden");
 
               rsvpForm.reset();
@@ -1900,7 +1812,31 @@
           });
       });
     }
+
+    // E. Modal Close Handler (Attaches close behavior to all buttons/backdrop inside success modal)
+    const hideModal = () => {
+      if (successModal) successModal.classList.add("hidden");
+    };
+
+    if (closeModal) closeModal.addEventListener("click", hideModal);
+    if (confirmModal) confirmModal.addEventListener("click", hideModal);
+
+    if (successModal) {
+      // Find all clickable elements inside the modal window and assign hideModal
+      const modalClickables = successModal.querySelectorAll("button, [role='button'], svg, span, a");
+      modalClickables.forEach((el) => {
+        el.addEventListener("click", hideModal);
+      });
+
+      // Close when clicking the dark outer background
+      successModal.addEventListener("click", function (e) {
+        if (e.target === successModal) {
+          hideModal();
+        }
+      });
+    }
   });
+</script>
 </script>
     <script id="bridalPartyScript">
       document.addEventListener("DOMContentLoaded", function () {
